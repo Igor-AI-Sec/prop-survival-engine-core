@@ -36,6 +36,26 @@ class OmsService(EventIngestion):
         if bind_events is not None:
             bind_events(self.accept_execution_event)
 
+    def _append_event(self, event_type, payload):
+        """A failed durable write requires replay, including legacy journals."""
+        try:
+            return self.journal.append(event_type, payload)
+        except BaseException:
+            self._receipt_failed = True
+            self.state = OmsState.RECOVERING
+            raise
+
+    @staticmethod
+    def _validate_request(intent, decision):
+        if not isinstance(intent, OrderIntent) or type(intent.quantity) is not int or intent.quantity <= 0:
+            raise ValueError("intent quantity must be a positive integer")
+        if (not isinstance(decision, RiskDecision) or not isinstance(decision.action, RiskAction)
+                or not isinstance(decision.reason, str)):
+            raise ValueError("invalid risk decision")
+        if decision.quantity is not None and (
+                type(decision.quantity) is not int or not 0 < decision.quantity <= intent.quantity):
+            raise ValueError("risk decision quantity must be a positive integer within the intent")
+
     @serialized
     def cancel(self, order_id: UUID) -> None:
         """Authorize cancellation durably; only platform facts release liability."""
@@ -46,7 +66,7 @@ class OmsService(EventIngestion):
             return
         if managed.state not in {OrderState.ACCEPTED, OrderState.PARTIALLY_FILLED}:
             raise RecoveryRequired("uncertain order requires reconciliation before cancellation")
-        self.journal.append(events.EXECUTION_CANCEL_REQUESTED, {
+        self._append_event(events.EXECUTION_CANCEL_REQUESTED, {
             "order_id": str(order_id), "client_order_id": managed.order.client_order_id,
             "command_id": str(uuid4()),
         })
@@ -81,14 +101,14 @@ class OmsService(EventIngestion):
         if inventory:
             platform, accepted = inventory(platform, self.orders)
             if not accepted:
-                self.journal.append(events.RECONCILIATION, {"result": "gated"})
+                self._append_event(events.RECONCILIATION, {"result": "gated"})
                 self.state = OmsState.RECOVERING
                 return
         positions = dict(platform.positions or {})
         position_payload = {"positions": positions}
         if getattr(self.journal, "risk_managed", False):
             position_payload["complete"] = platform.positions is not None
-        self.journal.append(events.PLATFORM_POSITIONS, position_payload)
+        self._append_event(events.PLATFORM_POSITIONS, position_payload)
         self.platform_positions = positions
         for execution in platform.executions:
             key = _execution_key(execution)
@@ -96,7 +116,7 @@ class OmsService(EventIngestion):
             if existing is not None and execution_payload(existing) != execution_payload(execution):
                 raise RecoveryRequired("conflicting execution ID requires correction reconciliation")
             if key not in self.platform_executions:
-                self.journal.append(events.PLATFORM_EXECUTION, _serialize_execution(execution))
+                self._append_event(events.PLATFORM_EXECUTION, _serialize_execution(execution))
                 self.platform_executions[key] = execution
         platform_by_client_id = {o.client_order_id: o for o in platform.orders if o.client_order_id}
         platform_by_provider_id = {
@@ -162,7 +182,7 @@ class OmsService(EventIngestion):
                 for o in self.orders.values()
             ):
                 unknown_snapshot_order = True
-                self.journal.append(events.PLATFORM_ORDER, {
+                self._append_event(events.PLATFORM_ORDER, {
                     "client_order_id": remote.client_order_id,
                     "our_order_id": remote.our_order_id,
                     "provider_order_id": remote.provider_order_id,
@@ -187,12 +207,12 @@ class OmsService(EventIngestion):
             finish_risk_recovery = getattr(self.journal, "risk_finish_recovery", None)
             if finish_risk_recovery and not finish_risk_recovery():
                 blocked = True
-            self.journal.append(events.RECONCILIATION, {"result": "gated" if blocked else "success"})
+            self._append_event(events.RECONCILIATION, {"result": "gated" if blocked else "success"})
             self.state = OmsState.RECOVERING if blocked else OmsState.READY
 
     def _commit_platform_observation(self, managed, state, filled, provider_id, children, timestamp):
         """Persist reconciliation outcomes before exposing them to memory."""
-        self.journal.append(events.PLATFORM_ORDER, {
+        self._append_event(events.PLATFORM_ORDER, {
             "client_order_id": managed.order.client_order_id,
             "our_order_id": str(managed.order.order_id), "provider_order_id": provider_id,
             "child_provider_order_ids": list(children), "status": state.value,
@@ -226,6 +246,7 @@ class OmsService(EventIngestion):
 
     @serialized
     def process(self, intent: OrderIntent, decision: RiskDecision) -> ManagedOrder | None:
+        self._validate_request(intent, decision)
         self.drain_execution_events()
         managed, dispatch = self._admit_order(intent, decision)
         if not dispatch:
@@ -237,37 +258,39 @@ class OmsService(EventIngestion):
         try:
             result = self.execution.submit(order)
         except Exception:
-            managed.state = OrderState.UNCERTAIN
-            self.journal.append(events.SUBMISSION_STATE, {
-                "order_id": str(order.order_id), "state": managed.state.value,
+            self._append_event(events.SUBMISSION_STATE, {
+                "order_id": str(order.order_id), "state": OrderState.UNCERTAIN.value,
                 # Provider exceptions may contain credentials, URLs or response bodies.
                 "detail": "EXECUTION_SUBMISSION_EXCEPTION",
             })
+            managed.state = OrderState.UNCERTAIN
             self.drain_execution_events()
             return managed
-        managed.state = {
+        state = {
             SubmissionStatus.ACCEPTED: OrderState.ACCEPTED,
             SubmissionStatus.REJECTED: OrderState.REJECTED,
             SubmissionStatus.UNCERTAIN: OrderState.UNCERTAIN,
         }[result.status]
-        managed.provider_order_id = result.provider_order_id
-        managed.child_provider_order_ids = result.child_provider_order_ids
-        self.journal.append(events.SUBMISSION_STATE, {
-            "order_id": str(order.order_id), "state": managed.state.value,
+        self._append_event(events.SUBMISSION_STATE, {
+            "order_id": str(order.order_id), "state": state.value,
             # Returned details are untrusted too: adapters may copy exception text.
             "detail": {
                 SubmissionStatus.ACCEPTED: "EXECUTION_ACCEPTED",
                 SubmissionStatus.REJECTED: "EXECUTION_REJECTED",
                 SubmissionStatus.UNCERTAIN: "EXECUTION_UNCERTAIN",
             }[result.status],
-            "provider_order_id": managed.provider_order_id,
-            "child_provider_order_ids": list(managed.child_provider_order_ids),
+            "provider_order_id": result.provider_order_id,
+            "child_provider_order_ids": list(result.child_provider_order_ids),
         })
+        managed.state = state
+        managed.provider_order_id = result.provider_order_id
+        managed.child_provider_order_ids = result.child_provider_order_ids
         self.drain_execution_events()
         return managed
 
     @inbox_serialized
     def _admit_order(self, intent: OrderIntent, decision: RiskDecision):
+        self._validate_request(intent, decision)
         if self._pending_events or self._receipt_failed:
             raise RecoveryRequired("pending execution receipts must be drained before admission")
         if self.state is not OmsState.READY:
@@ -292,7 +315,7 @@ class OmsService(EventIngestion):
         if risk_admission:
             risk_admission(intent, decision)
         if decision.action is RiskAction.REJECT:
-            self.journal.append(events.INTENT_DECIDED, {
+            self._append_event(events.INTENT_DECIDED, {
                 "intent_id": str(intent.intent_id), "action": decision.action.value,
                 "reason": decision.reason,
             })
@@ -303,7 +326,7 @@ class OmsService(EventIngestion):
         if quantity <= 0 or quantity > intent.quantity:
             raise ValueError("risk decision quantity must be between 1 and intent quantity")
         if prior_decision is None:
-            self.journal.append(events.INTENT_DECIDED, {
+            self._append_event(events.INTENT_DECIDED, {
                 "intent_id": str(intent.intent_id), "action": decision.action.value,
                 "quantity": quantity, "reason": decision.reason,
             })
@@ -314,12 +337,12 @@ class OmsService(EventIngestion):
             is_entry=intent.is_entry,
         )
         # Durable unique intent-to-order row is committed before side effects.
-        self.journal.append(events.ORDER_CREATED, _serialize_order(order))
+        self._append_event(events.ORDER_CREATED, _serialize_order(order))
         managed = ManagedOrder(order, OrderState.CREATED)
         self.orders[order.order_id] = managed
         self.by_intent[intent.intent_id] = managed
         managed.state = OrderState.SUBMITTING
-        self.journal.append(events.SUBMISSION_STATE, {
+        self._append_event(events.SUBMISSION_STATE, {
             "order_id": str(order.order_id), "intent_id": str(intent.intent_id),
             "state": managed.state.value,
         })

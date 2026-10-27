@@ -37,9 +37,9 @@ This example has not been run as part of preparing this separate Core repository
 
 ## Tests and what the results mean
 
-Earlier private validation of the larger project reported **500 PURE500 passes** and **106 research-stdlib passes**, or **606 passes in total**. Another **494 cases were not tested**. The nine test modules in this repository come from the PURE500 scope; the 106 research-stdlib cases are not included.
+Earlier private validation of the larger project reported **500 PURE500 passes** and **106 research-stdlib passes**, or **606 passes in total**. Another **494 cases were not tested**. Nine inherited test modules come from the PURE500 scope; the 106 research-stdlib cases are not included.
 
-Those results are historical evidence for the larger private source, **not test results for this extracted Core repository**. This version has not been independently executed, tested or built. The source and archive underwent static checks, but those cannot confirm runtime correctness or security. See [Release status](RELEASE_STATUS.md) for exactly what was checked.
+Those results are historical evidence for the larger private source, **not test results for this extracted Core repository**. This revision separately passed **26 focused offline regression tests** using standard-library unittest on Python 3.12.7. They cover journal-write failures, Decimal fingerprints, order quantities, in-memory journal isolation and exact rational risk targets. The full pytest suite has not been rerun, and installation, builds and the example remain unverified for this revision. See [Release status](RELEASE_STATUS.md) for the scope and limits.
 
 The included tests can write temporary files, and one reproducibility test launches local Python child processes. There is no CI workflow, OS network sandbox or firewall provided here. Running pytest alone does not isolate the network, so review the code and run it in an environment you control.
 

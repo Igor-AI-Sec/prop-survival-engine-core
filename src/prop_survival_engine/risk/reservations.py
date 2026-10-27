@@ -45,7 +45,16 @@ def _context(value):
     state = dict(value["account"])
     for key in state:
         if key not in {"session_id", "status"}:
-            state[key] = Decimal(state[key])
+            field_value = state[key]
+            if key == "target_equity" and type(field_value) is dict:
+                if (set(field_value) != {"type", "numerator", "denominator"}
+                        or field_value["type"] != "fraction"
+                        or type(field_value["numerator"]) is not int or field_value["numerator"] <= 0
+                        or type(field_value["denominator"]) is not int or field_value["denominator"] <= 0):
+                    raise ValueError("invalid exact rational target")
+                state[key] = Fraction(field_value["numerator"], field_value["denominator"])
+            else:
+                state[key] = Decimal(field_value)
     state["status"] = AccountStatus(state["status"])
     with localcontext() as ctx:
         ctx.prec = max(1000, sum(len(str(v)) for v in state.values()))
@@ -58,6 +67,11 @@ def _encode_context(context):
     value = asdict(context)
     value["account"] = {k: (v.value if isinstance(v, AccountStatus) else str(v))
                         for k, v in value["account"].items()}
+    if type(context.account.target_equity) is Fraction:
+        target = context.account.target_equity
+        value["account"]["target_equity"] = {
+            "type": "fraction", "numerator": target.numerator, "denominator": target.denominator,
+        }
     value["oms_state"] = context.oms_state.value
     value["session_state"] = context.session_state.value
     return value

@@ -210,7 +210,12 @@ def test_config_validation(invalid):
 
 @pytest.mark.parametrize("requested", [True, 1.5, D("2")])
 def test_noninteger_intent_quantity_is_rejected_at_policy_boundary(requested):
-    result = policy().evaluate(OrderIntent("ES", Side.BUY, requested), context=context(),
+    with pytest.raises(ValueError):
+        OrderIntent("ES", Side.BUY, requested)
+    proposal = OrderIntent("ES", Side.BUY, 1)
+    # Retain policy defense coverage for an object that bypassed construction.
+    object.__setattr__(proposal, "quantity", requested)
+    result = policy().evaluate(proposal, context=context(),
                                estimate=ContractLossEstimate(D("1")))
     assert result.action is RiskAction.REJECT
     assert result.approved_contracts == 0

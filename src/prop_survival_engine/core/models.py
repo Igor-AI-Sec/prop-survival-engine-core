@@ -28,8 +28,8 @@ class OrderIntent:
     def __post_init__(self) -> None:
         if not self.instrument:
             raise ValueError("instrument is required")
-        if self.quantity <= 0:
-            raise ValueError("quantity must be positive")
+        if type(self.quantity) is not int or self.quantity <= 0:
+            raise ValueError("quantity must be a positive integer")
 
 
 @dataclass(frozen=True)

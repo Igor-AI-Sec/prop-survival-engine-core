@@ -1,7 +1,7 @@
 # Source provenance and third-party boundary
 
 The owner states that this project was developed privately, outside employment,
-with AI assistance and without knowing copying of third-party code. This is a
+with AI assistance and without knowingly copying third-party code. This is a
 provenance declaration, not independent verification of authorship or legal clearance.
 MIT applies only to material the owner has the right to license. LICENSE records
 the owner-approved copyright holder; external components retain their own terms.

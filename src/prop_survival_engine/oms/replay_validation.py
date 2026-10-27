@@ -82,6 +82,10 @@ def validate_replay(records):
             intent = UUID(data["intent_id"])
             if intent in decisions or data["action"] not in {"ALLOW", "REDUCE", "REJECT"}:
                 raise ValueError("invalid intent decision")
+            quantity = data.get("quantity")
+            if ((quantity is not None and (type(quantity) is not int or quantity <= 0))
+                    or (data["action"] != "REJECT" and quantity is None)):
+                raise ValueError("invalid intent decision quantity")
             decisions[intent] = data["action"]
         elif kind == events.ORDER_CREATED:
             oid, intent = UUID(data["order_id"]), UUID(data["intent_id"])

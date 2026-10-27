@@ -20,4 +20,4 @@ Please don't post credentials, private journals, sensitive reproduction data or 
 
 ## What the checks don't prove
 
-Historical test passes and static source checks do not establish that the code is free of vulnerabilities. This separated Core repository has not been independently runtime-tested.
+Historical test passes, static source checks and focused local regression tests do not establish that the code is free of vulnerabilities. The complete Core package has not received full runtime or independent security validation.

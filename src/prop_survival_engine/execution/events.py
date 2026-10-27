@@ -53,11 +53,38 @@ class ExecutionEvent:
         return sha256(json.dumps(event_payload(self), sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
+def _price_text(price: Decimal) -> str:
+    """Exact numeric canonical form, independent of Decimal precision/capitals."""
+    if not isinstance(price, Decimal) or not price.is_finite():
+        raise ValueError("execution price must be a finite Decimal")
+    sign, digits, exponent = price.as_tuple()
+    if price.is_zero():
+        return "-0" if sign else "0"  # Preserve the legacy signed-zero identity.
+    end = len(digits)
+    while end > 1 and digits[end - 1] == 0:
+        end -= 1
+        exponent += 1
+    coefficient = "".join(str(d) for d in digits[:end])
+    adjusted = exponent + len(coefficient) - 1
+    if exponent <= 0 and adjusted >= -6:
+        point = len(coefficient) + exponent
+        if point <= 0:
+            text = "0." + "0" * -point + coefficient
+        elif point < len(coefficient):
+            text = coefficient[:point] + "." + coefficient[point:]
+        else:
+            text = coefficient
+    else:
+        text = coefficient[0] + ("." + coefficient[1:] if len(coefficient) > 1 else "")
+        text += f"E{adjusted:+d}"
+    return ("-" if sign else "") + text
+
+
 def execution_payload(value: PlatformExecution) -> dict:
     # Local correlation can differ after restart; it is not execution identity.
     return dict(execution_id=value.execution_id, provider_order_id=value.provider_order_id,
                 instrument=value.instrument, side=value.side, quantity=value.quantity,
-                price=str(value.price.normalize()), timestamp=value.timestamp.astimezone(timezone.utc).isoformat())
+                price=_price_text(value.price), timestamp=value.timestamp.astimezone(timezone.utc).isoformat())
 
 
 def execution_from_payload(value: dict) -> PlatformExecution:
