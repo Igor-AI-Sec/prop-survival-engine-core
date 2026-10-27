@@ -1,0 +1,20 @@
+# Convenience only: the explicit reviewed manifest controls publication.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+.env
+.env.*
+data/
+*.sqlite*
+*.db
+*.log
+.ci-scratch/
+.release-work*/
+.release-validation*/
+.historical-mbo-runtime*/
