@@ -14,14 +14,18 @@ The OMS uses fixed submission classifications in selected confidentiality paths;
 this is not a universal journal redactor. Caller-provided fields remain a boundary.
 Do not put secrets into exception messages, metadata, logs or journal records.
 
-## Planned confidential reporting channel
+## Reporting vulnerabilities
 
-GitHub Private Vulnerability Reporting is the planned confidential channel.
-It has not been activated as part of this candidate preparation. After creating
-the target repository, the owner must enable and verify the feature before public
-publication. Until activation, no operational private reporting channel is claimed.
-Do not publish credentials, private journals or sensitive reproductions in public
-issues. No email address or alternative contact is asserted here.
+When this repository is public and GitHub Private Vulnerability Reporting is
+enabled, use the repository's Security / Advisories / Report a vulnerability
+form to disclose a potential security issue privately to its maintainers.
+The owner should enable and verify this feature promptly after making the
+repository public. Until it is verified as enabled, no active confidential
+reporting channel is claimed.
 
-Neither the historical passing tests nor candidate static checks establish an
-absence of vulnerabilities. The separated Core package has not been runtime-tested.
+Do not publish credentials, private journals, sensitive reproductions or
+vulnerability details in public issues. No alternative reporting email or
+contact channel is asserted here.
+
+Neither the historical passing tests nor static checks establish an absence
+of vulnerabilities. The separated Core package has not been runtime-tested.
