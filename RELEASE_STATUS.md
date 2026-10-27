@@ -1,53 +1,33 @@
-# Core v0.1.0 release status
+# Core v0.1.0: scope and test evidence
 
-This is an experimental offline research source distribution. This document
-describes its scope, evidence and limitations; it does not authorize making
-the repository public. Repository visibility and publication remain separate
-decisions for the owner.
+This is an experimental offline Python core for risk research, simulation and order management. The code is available as a source tree, but this document is not a claim that it has been tested as a standalone package or is ready for live trading.
 
-## Included scope
+## What's included
 
-Offline Core Python source, neutral execution and market-data contracts,
-nine unchanged test modules, four fictional configurations and one synthetic
-example. External SDK/platform integrations, research modules and private
-CI are excluded.
+The core source, neutral execution and market-data interfaces, nine existing test modules, four fictional prop-plan configurations and one synthetic example are included. Broker and vendor SDK adapters, native platform integrations, research modules and private CI files are not.
 
-## Evidence and limitations
+## What was tested previously
 
-The broader private validation reported:
-- PURE500: 500 PASS.
-- Research-stdlib: 106 PASS.
-- Total: 606 PASS; remaining 494 cases NOT TESTED.
+The larger private project had these historical validation results:
 
-The nine included test modules correspond to the historical PURE500 scope.
-The research-stdlib 106 cases are not included. These numbers are historical
-evidence from broader private source validation, NOT test results from this
-separately extracted Core distribution.
+- **PURE500:** 500 PASS.
+- **Research-stdlib:** 106 PASS.
+- **Total:** 606 PASS, with another 494 cases NOT TESTED.
 
-No tests, test collection, imports of project code, dependency installation,
-package builds or native tools were run on the extracted Core artifact during
-release preparation. Standalone runtime behavior remains unverified.
+The nine test modules here belong to the historical PURE500 scope. The research-stdlib tests are not part of this repository. The 606 passes therefore do **not** mean that the current 75-file Core repository has passed 606 tests.
 
-The original 75-file candidate underwent read-only static checks of Python
-syntax, import targets, source inventory, privacy patterns, archive readback
-and file hashes. Static checks do not prove dynamic behavior, security,
-ownership or source authorship. Changes after that archive check require a
-new comparison against the intended release inventory.
+## What was checked for this Core
 
-Historical native/platform, acquisition/qualification and real-symlink
-coverage limitations remain unresolved. No historical market-data
-qualification, profitability, provider permission or LIVE trading readiness
-is claimed.
+The original 75-file candidate was reviewed without running its code. The checks covered the file inventory and hashes, Python syntax, static import references, fictional JSON files, archive integrity and common privacy or secret-leak patterns.
 
-## Publication controls
+The source files and tests have not been changed since that review. The documentation has been edited, so the original ZIP's hashes no longer describe every file in this repository. The final repository snapshot should be checked again if an exact release manifest is needed.
 
-The MIT LICENSE records the owner-approved copyright holder. The owner must
-separately authorize any public visibility change after reviewing the exact
-repository revision, source/licensing declaration and stated evidence limits.
+No tests were collected or executed on the extracted Core. No project modules were imported at runtime, dependencies installed, packages built or native tools run. Its behavior as a standalone project remains unverified.
 
-GitHub Private Vulnerability Reporting is intended as the confidential
-reporting channel. It can be enabled on a public repository; once public,
-the owner should enable and verify the feature promptly. Until verified,
-no active private reporting channel is claimed. See SECURITY.md.
+## What remains unknown
 
-This document is release documentation, not an authorization to publish.
+These checks do not prove that all runtime paths work, that the project is secure, or that its source and licensing claims are independently verified. Earlier gaps in native/platform coverage, historical market-data qualification, acquisition workflows and real Windows symlink testing have not been closed by this release.
+
+No profitability, current provider-rule compliance, permission to use third-party services, or live-trading readiness is claimed.
+
+The code is licensed under [MIT](LICENSE) to the extent the owner has the rights to license it. See [Third-party notes](THIRD_PARTY.md) and [Security](SECURITY.md) for additional boundaries and precautions.

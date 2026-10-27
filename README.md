@@ -1,60 +1,50 @@
 # Prop Survival Engine Core
 
-An experimental offline foundation for risk research, simulation and order management (OMS).
+This repository contains the offline Python core of Prop Survival Engine. It explores risk rules, simulated trading challenges and order management without connecting to a live broker or market-data service.
 
-## Scope
+It's research software, not a trading bot or a system ready to trade real accounts.
 
-Core provides domain models, deterministic risk sizing, fictional prop-rule models,
-Monte Carlo challenge/reach-avoid simulation, simulated execution and market-data
-interfaces, OMS recovery, and in-memory/SQLite persistence and reservation ledgers.
-A neutral JSON protocol validator is retained because OMS journal replay imports
-it; no bridge transport, platform binding or connection implementation is included.
-Instrument mechanics are model inputs, not a current exchange specification feed.
-The four bundled configurations are explicitly fictional and include deliberately
-incomplete/conflicting provenance cases. They are not provider-approved plans.
+## What it does
 
-This is not a ready LIVE trading system. It guarantees neither financial results
-nor compliance with any prop firm's rules. Real brokers, external SDK adapters,
-historical-data acquisition/replay and native platform integrations are excluded.
-Do not inject real execution clients: a caller-supplied implementation can perform
-real operations. Use only local simulated clients and synthetic inputs.
+- **Risk:** models instruments, position sizing, contract limits, policies and reservations.
+- **Prop rules:** evaluates fictional challenge rules, account limits and trading calendars.
+- **Simulation:** runs challenge and reach-avoid simulations with reproducible inputs, seeds and simulated execution.
+- **Order management (OMS):** includes event ingestion, journal replay, recovery logic and reservation tracking.
+- **Persistence:** provides in-memory and SQLite implementations.
 
-## Release status and validation evidence
+The repository also includes neutral interfaces for execution and market data. These define how another component could interact with the core; they do not connect to any trading platform. A JSON bridge-protocol validator is included because the OMS replay code imports it. There is no bridge transport or external platform binding.
 
-Core v0.1.0 is an experimental, offline, source-only distribution.
-The broader private validation reported 500 PURE500 passes plus 106 research-stdlib
-passes (606 total); 494 cases remained NOT TESTED. Research modules are excluded here.
-These are historical results for broader private source, not results from this
-separately extracted Core artifact, which has NOT been independently executed or tested.
-Static source and archive checks do not establish runtime correctness, profitability,
-security certification or production readiness. See RELEASE_STATUS.md.
+The four example prop-plan configurations are fictional. Some deliberately have missing or conflicting provenance information to exercise those cases. They are not real providers' approved rules. Instrument specifications are model inputs, not an up-to-date exchange reference.
 
-## Local prerequisites and layout
+## What it doesn't do
 
-Python 3.11+; the runtime source declares no third-party dependencies. Tests require
-pytest >=8.0; historical PURE500 validation used pytest 9.1.1 on Windows/Python 3.12.
-Packaging requires setuptools >=68. No interpreter, packages, SDKs or binaries are
-bundled. Installation, package build and cross-platform behavior of this artifact
-have not been verified. Test sources and fictional configurations are supplied in
-this source tree; they are not promised as installed-wheel resources.
+There is no real broker adapter, live market-data feed, historical-data acquisition pipeline, native trading-platform integration or production trading setup in this repository. The separate research modules and private validation infrastructure are not included either.
 
-The `src/` layout requires an approved installation or an explicit local source
-path. From the source root, a future locally approved synthetic example is:
+Nothing here establishes that a strategy is profitable, that the code follows a particular prop firm's current rules, or that any provider has approved its use. Don't connect it to a real account. Although the bundled components are intended for offline work, a caller-supplied execution implementation could still perform real operations. Stick to simulated clients and synthetic data.
+
+## Running the synthetic example
+
+You need Python 3.11 or newer. The core has no third-party runtime dependencies. Its code lives under `src/`, so imports need either an installation or that directory on your Python path.
+
+From the repository root, the following PowerShell commands illustrate how to run the synthetic example:
 
 ```powershell
 $env:PYTHONPATH = (Join-Path $PWD 'src')
 python -B examples/benchmark_reach_avoid.py
 ```
 
-This is an illustrative example, not a command executed during Core release preparation.
-The included nine test modules retain their original content. They write temporary
-files; one reproducibility test starts local Python children for hash-seed checks.
-No CI workflow or OS network sandbox is bundled. Pytest switches alone do not
-isolate the network. Review the local environment before any future execution.
+This example has not been run as part of preparing this separate Core repository. Installation, package building and cross-platform behavior haven't been verified for it either. The build configuration requires `setuptools>=68`; the tests need `pytest>=8.0`. The test files and fictional JSON plans are part of this source tree, but are not guaranteed to be included in an installed wheel.
+
+## Tests and what the results mean
+
+Earlier private validation of the larger project reported **500 PURE500 passes** and **106 research-stdlib passes**, or **606 passes in total**. Another **494 cases were not tested**. The nine test modules in this repository come from the PURE500 scope; the 106 research-stdlib cases are not included.
+
+Those results are historical evidence for the larger private source, **not test results for this extracted Core repository**. This version has not been independently executed, tested or built. The source and archive underwent static checks, but those cannot confirm runtime correctness or security. See [Release status](RELEASE_STATUS.md) for exactly what was checked.
+
+The included tests can write temporary files, and one reproducibility test launches local Python child processes. There is no CI workflow, OS network sandbox or firewall provided here. Running pytest alone does not isolate the network, so review the code and run it in an environment you control.
 
 ## License and security
 
-MIT is selected for code the owner has the right to license. The approved copyright
-holder is specified in LICENSE. Owner-reported provenance is
-private development with AI assistance and no knowing copying of external code;
-this is not independent proof of authorship. See THIRD_PARTY.md and SECURITY.md.
+The project uses the [MIT license](LICENSE) for material the owner has the right to license. The owner describes the code as privately developed outside employment, with AI assistance and without knowingly copying third-party source. That account has not been independently verified. See [Third-party notes](THIRD_PARTY.md) for the boundaries of that declaration.
+
+For safe-use guidance and how to report a security issue, see [Security](SECURITY.md).
