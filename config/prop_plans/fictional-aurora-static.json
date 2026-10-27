@@ -1,0 +1,46 @@
+{
+  "origin": "FICTIONAL",
+  "plan": {
+    "plan": {
+      "breach_on_touch": true,
+      "calendar_json": null,
+      "consistency_fraction": "0.5",
+      "consistency_mode": "ELIGIBILITY",
+      "daily_loss_action": "HARD_BREACH",
+      "daily_loss_limit": "150",
+      "drawdown_type": "STATIC",
+      "fees": {
+        "activation": "0",
+        "evaluation": "0",
+        "reset": "0",
+        "retry_fee": "RESET"
+      },
+      "maximum_drawdown": "400",
+      "maximum_position_size": 2,
+      "minimum_trading_days": 2,
+      "payouts": {
+        "enabled": false,
+        "floor_effect": "UNCHANGED",
+        "lifetime_cap": null,
+        "minimum_profit": "0",
+        "minimum_trading_days": 0,
+        "per_payout_cap": null,
+        "profit_split": "1",
+        "safety_net": "0"
+      },
+      "profit_target_gain": "200",
+      "stage": "EVALUATION",
+      "starting_balance": "2000",
+      "target_on_touch": true,
+      "target_requires_flat": false,
+      "target_uses_unrealized": true,
+      "terminal_breach": true,
+      "terminal_pass": true,
+      "trailing_floor_cap": null,
+      "unrealized_moves_floor": false
+    },
+    "version": 1
+  },
+  "rules": [],
+  "version": 1
+}

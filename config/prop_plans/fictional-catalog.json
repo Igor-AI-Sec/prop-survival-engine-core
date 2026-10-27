@@ -1,0 +1,712 @@
+{
+  "bibliography": [
+    {
+      "number": 1,
+      "title": "FICTIONAL Aurora Workshop",
+      "url": "https://aurora.example.invalid/fictional-rules"
+    },
+    {
+      "number": 2,
+      "title": "FICTIONAL Birch Workshop",
+      "url": "https://birch.example.invalid/fictional-rules"
+    },
+    {
+      "number": 3,
+      "title": "FICTIONAL Cobalt Workshop",
+      "url": "https://cobalt.example.invalid/fictional-rules"
+    },
+    {
+      "number": 4,
+      "title": "FICTIONAL Dune Workshop",
+      "url": "https://dune.example.invalid/fictional-rules"
+    },
+    {
+      "number": 5,
+      "title": "FICTIONAL Ember Workshop",
+      "url": "https://ember.example.invalid/fictional-rules"
+    }
+  ],
+  "complete_examples": [
+    {
+      "company": "FICTIONAL Aurora Workshop",
+      "path": "fictional-aurora-static.json"
+    },
+    {
+      "company": "FICTIONAL Birch Workshop",
+      "path": "fictional-birch-eod.json"
+    },
+    {
+      "company": "FICTIONAL Cobalt Workshop",
+      "path": "fictional-cobalt-intraday.json"
+    }
+  ],
+  "context_sections": "All companies, values and sources are invented. OFFICIAL and VERIFIED are synthetic test labels only, not actual external verification or provider permission. Sparse records remain blocked; complete examples use explicit FICTIONAL origin and no external evidence.",
+  "observed_date": "2026-10-07",
+  "origin": "FICTIONAL",
+  "plans": [
+    {
+      "execution_scopes": [],
+      "model_blockers": {
+        "CHALLENGE": [
+          "capped_trailing_floor",
+          "soft_daily_pause",
+          "calendar_news_constraints"
+        ],
+        "FUNDED_PAYOUT": [
+          "payout_count_transition"
+        ]
+      },
+      "monetary_fields": {
+        "maximum_drawdown": {
+          "amount_index": 0,
+          "rule": "Drawdown",
+          "value": "80"
+        },
+        "profit_target_gain": {
+          "amount_index": 0,
+          "rule": "Target",
+          "value": "120"
+        }
+      },
+      "name": "FICTIONAL Aurora Workshop",
+      "requirements": {
+        "CHALLENGE": [
+          "Target",
+          "Drawdown",
+          "Unrealized breaches",
+          "Min days",
+          "Consistency"
+        ],
+        "EXECUTION": [
+          "API"
+        ],
+        "FUNDED_PAYOUT": [
+          "Payout",
+          "Reward share"
+        ]
+      },
+      "rows": [
+        {
+          "claim": "Invented profit target $120",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Target",
+          "source": "FICTIONAL Aurora Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "Invented maximum drawdown $80",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Drawdown",
+          "source": "FICTIONAL Aurora Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://aurora.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved equity rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Unrealized breaches",
+          "source": "FICTIONAL Aurora Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://aurora.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved minimum days",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Min days",
+          "source": "FICTIONAL Aurora Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Payout",
+          "source": "FICTIONAL Aurora Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented personal simulator permission",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "API",
+          "source": "FICTIONAL Aurora Workshop / official",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented secondary claim",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Secondary",
+          "source": "FICTIONAL Aurora Workshop / secondary",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved payout share",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Reward share",
+          "source": "FICTIONAL Aurora Workshop / secondary",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Fee",
+          "source": "FICTIONAL Aurora Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved consistency rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Consistency",
+          "source": "FICTIONAL Aurora Workshop / inferred",
+          "status": "UNVERIFIED"
+        }
+      ]
+    },
+    {
+      "execution_scopes": [],
+      "model_blockers": {
+        "CHALLENGE": [
+          "capped_trailing_floor",
+          "soft_daily_pause",
+          "calendar_news_constraints"
+        ],
+        "FUNDED_PAYOUT": [
+          "payout_count_transition"
+        ]
+      },
+      "monetary_fields": {
+        "maximum_drawdown": {
+          "amount_index": 0,
+          "rule": "Drawdown",
+          "value": "90"
+        },
+        "profit_target_gain": {
+          "amount_index": 0,
+          "rule": "Target",
+          "value": "180"
+        }
+      },
+      "name": "FICTIONAL Birch Workshop",
+      "requirements": {
+        "CHALLENGE": [
+          "Target",
+          "Drawdown",
+          "Unrealized breaches",
+          "Min days",
+          "Consistency"
+        ],
+        "EXECUTION": [
+          "API"
+        ],
+        "FUNDED_PAYOUT": [
+          "Payout",
+          "Reward share"
+        ]
+      },
+      "rows": [
+        {
+          "claim": "Invented profit target $180",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Target",
+          "source": "FICTIONAL Birch Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "Invented maximum drawdown $90",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Drawdown",
+          "source": "FICTIONAL Birch Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://birch.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved equity rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Unrealized breaches",
+          "source": "FICTIONAL Birch Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://birch.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved minimum days",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Min days",
+          "source": "FICTIONAL Birch Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Payout",
+          "source": "FICTIONAL Birch Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented personal simulator permission",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "API",
+          "source": "FICTIONAL Birch Workshop / official",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented secondary claim",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Secondary",
+          "source": "FICTIONAL Birch Workshop / secondary",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved payout share",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Reward share",
+          "source": "FICTIONAL Birch Workshop / secondary",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Fee",
+          "source": "FICTIONAL Birch Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved consistency rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Consistency",
+          "source": "FICTIONAL Birch Workshop / inferred",
+          "status": "UNVERIFIED"
+        }
+      ]
+    },
+    {
+      "execution_scopes": [],
+      "model_blockers": {
+        "CHALLENGE": [
+          "capped_trailing_floor",
+          "soft_daily_pause",
+          "calendar_news_constraints"
+        ],
+        "FUNDED_PAYOUT": [
+          "payout_count_transition"
+        ]
+      },
+      "monetary_fields": {
+        "maximum_drawdown": {
+          "amount_index": 0,
+          "rule": "Drawdown",
+          "value": "120"
+        },
+        "profit_target_gain": {
+          "amount_index": 0,
+          "rule": "Target",
+          "value": "240"
+        }
+      },
+      "name": "FICTIONAL Cobalt Workshop",
+      "requirements": {
+        "CHALLENGE": [
+          "Target",
+          "Drawdown",
+          "Unrealized breaches",
+          "Min days",
+          "Consistency"
+        ],
+        "EXECUTION": [
+          "API"
+        ],
+        "FUNDED_PAYOUT": [
+          "Payout",
+          "Reward share"
+        ]
+      },
+      "rows": [
+        {
+          "claim": "Invented profit target $240",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Target",
+          "source": "FICTIONAL Cobalt Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "Invented maximum drawdown $120",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Drawdown",
+          "source": "FICTIONAL Cobalt Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://cobalt.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved equity rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Unrealized breaches",
+          "source": "FICTIONAL Cobalt Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://cobalt.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved minimum days",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Min days",
+          "source": "FICTIONAL Cobalt Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Payout",
+          "source": "FICTIONAL Cobalt Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented personal simulator permission",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "API",
+          "source": "FICTIONAL Cobalt Workshop / official",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented secondary claim",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Secondary",
+          "source": "FICTIONAL Cobalt Workshop / secondary",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved payout share",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Reward share",
+          "source": "FICTIONAL Cobalt Workshop / secondary",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Fee",
+          "source": "FICTIONAL Cobalt Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved consistency rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Consistency",
+          "source": "FICTIONAL Cobalt Workshop / inferred",
+          "status": "UNVERIFIED"
+        }
+      ]
+    },
+    {
+      "execution_scopes": [],
+      "model_blockers": {
+        "CHALLENGE": [
+          "capped_trailing_floor",
+          "soft_daily_pause",
+          "calendar_news_constraints"
+        ],
+        "FUNDED_PAYOUT": [
+          "payout_count_transition"
+        ]
+      },
+      "monetary_fields": {
+        "maximum_drawdown": {
+          "amount_index": 0,
+          "rule": "Drawdown",
+          "value": "200"
+        },
+        "profit_target_gain": {
+          "amount_index": 0,
+          "rule": "Target",
+          "value": "300"
+        }
+      },
+      "name": "FICTIONAL Dune Workshop",
+      "requirements": {
+        "CHALLENGE": [
+          "Target",
+          "Drawdown",
+          "Unrealized breaches",
+          "Min days",
+          "Consistency"
+        ],
+        "EXECUTION": [
+          "API"
+        ],
+        "FUNDED_PAYOUT": [
+          "Payout",
+          "Reward share"
+        ]
+      },
+      "rows": [
+        {
+          "claim": "Invented profit target $300",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Target",
+          "source": "FICTIONAL Dune Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "Invented maximum drawdown $200",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Drawdown",
+          "source": "FICTIONAL Dune Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://dune.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved equity rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Unrealized breaches",
+          "source": "FICTIONAL Dune Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://dune.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved minimum days",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Min days",
+          "source": "FICTIONAL Dune Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Payout",
+          "source": "FICTIONAL Dune Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented personal simulator permission",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "API",
+          "source": "FICTIONAL Dune Workshop / official",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented secondary claim",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Secondary",
+          "source": "FICTIONAL Dune Workshop / secondary",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved payout share",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Reward share",
+          "source": "FICTIONAL Dune Workshop / secondary",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Fee",
+          "source": "FICTIONAL Dune Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved consistency rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Consistency",
+          "source": "FICTIONAL Dune Workshop / inferred",
+          "status": "UNVERIFIED"
+        }
+      ]
+    },
+    {
+      "execution_scopes": [
+        "PERSONAL_SIM_NON_HFT"
+      ],
+      "model_blockers": {
+        "CHALLENGE": [
+          "capped_trailing_floor",
+          "soft_daily_pause",
+          "calendar_news_constraints"
+        ],
+        "FUNDED_PAYOUT": [
+          "payout_count_transition"
+        ]
+      },
+      "monetary_fields": {
+        "maximum_drawdown": {
+          "amount_index": 0,
+          "rule": "Drawdown",
+          "value": "180"
+        },
+        "profit_target_gain": {
+          "amount_index": 0,
+          "rule": "Target",
+          "value": "360"
+        }
+      },
+      "name": "FICTIONAL Ember Workshop",
+      "requirements": {
+        "CHALLENGE": [
+          "Target",
+          "Drawdown",
+          "Unrealized breaches",
+          "Min days",
+          "Consistency"
+        ],
+        "EXECUTION": [
+          "API"
+        ],
+        "FUNDED_PAYOUT": [
+          "Payout",
+          "Reward share"
+        ]
+      },
+      "rows": [
+        {
+          "claim": "Invented profit target $360",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Target",
+          "source": "FICTIONAL Ember Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "Invented maximum drawdown $180",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Drawdown",
+          "source": "FICTIONAL Ember Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://ember.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved equity rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Unrealized breaches",
+          "source": "FICTIONAL Ember Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "alternatives": [
+            {
+              "claim": "Alternative invented rule",
+              "effective_date": "2026-01-01",
+              "notes": "Deliberate synthetic conflict; not real evidence",
+              "reference": "https://ember.example.invalid/conflicting-fixture",
+              "source_type": "OFFICIAL"
+            }
+          ],
+          "claim": "Invented unresolved minimum days",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Min days",
+          "source": "FICTIONAL Ember Workshop / official",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Payout",
+          "source": "FICTIONAL Ember Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented personal simulator permission",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "API",
+          "source": "FICTIONAL Ember Workshop / official",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "Invented secondary claim",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Secondary",
+          "source": "FICTIONAL Ember Workshop / secondary",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved payout share",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Reward share",
+          "source": "FICTIONAL Ember Workshop / secondary",
+          "status": "AMBIGUOUS"
+        },
+        {
+          "claim": "Not supplied",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Fee",
+          "source": "FICTIONAL Ember Workshop / inferred",
+          "status": "UNVERIFIED"
+        },
+        {
+          "claim": "Invented unresolved consistency rule",
+          "effective_conflict": "Invented offline evidence; no real company or provider policy.",
+          "rule": "Consistency",
+          "source": "FICTIONAL Ember Workshop / inferred",
+          "status": "UNVERIFIED"
+        }
+      ]
+    }
+  ],
+  "source_reference": "Independent fictional offline fixture; no real provider evidence",
+  "version": 1
+}

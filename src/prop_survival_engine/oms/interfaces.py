@@ -1,0 +1,13 @@
+from typing import Protocol
+
+from prop_survival_engine.core.models import OrderIntent
+from prop_survival_engine.oms.models import ManagedOrder
+from prop_survival_engine.execution.events import ExecutionEvent
+from prop_survival_engine.risk.service import RiskDecision
+
+
+class OrderManager(Protocol):
+    def recover(self) -> None: ...
+    def process(self, intent: OrderIntent, decision: RiskDecision) -> ManagedOrder | None: ...
+    def accept_execution_event(self, event: ExecutionEvent) -> int: ...
+    def drain_execution_events(self) -> list[str]: ...
