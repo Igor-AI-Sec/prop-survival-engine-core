@@ -1,16 +1,16 @@
 # Prop Survival Engine Core
 
-This repository contains the offline Python core of Prop Survival Engine. It explores risk rules, simulated trading challenges and order management without connecting to a live broker or market-data service.
+Prop Survival Engine Core is an experimental offline Python project for researching **prop-trading challenge rules**, **risk management** and **futures-style position sizing**. It models static and **EOD/intraday trailing drawdown**, **daily loss limits**, **Monte Carlo** challenge simulations and event-driven order management (OMS), without connecting to a live broker or market-data service.
 
 It's research software, not a trading bot or a system ready to trade real accounts.
 
-## What it does
+## Features
 
-- **Risk:** models instruments, position sizing, contract limits, policies and reservations.
-- **Prop rules:** evaluates fictional challenge rules, account limits and trading calendars.
-- **Simulation:** runs challenge and reach-avoid simulations with reproducible inputs, seeds and simulated execution.
-- **Order management (OMS):** includes event ingestion, journal replay, recovery logic and reservation tracking.
-- **Persistence:** provides in-memory and SQLite implementations.
+- **Prop-firm challenge rules:** fictional evaluation and funded-account plans with static, end-of-day (EOD) and intraday trailing drawdown; hard-breach or soft-pause daily loss limits; consistency rules; minimum trading days; and configurable trading sessions and blackout windows.
+- **Risk management and position sizing:** instrument and contract limits, exact `Decimal`/`Fraction` arithmetic, loss-budget-based sizing, risk policies and reservations.
+- **Monte Carlo simulation:** reproducible challenge and reach-avoid scenarios using synthetic trade outcomes, explicit seeds and simulated execution.
+- **Order management (OMS):** provider-neutral execution interfaces, event ingestion, durable journals, replay, reconciliation and conservative recovery when an order's outcome is uncertain.
+- **Persistence:** in-memory and SQLite journals and risk ledgers.
 
 The repository also includes neutral interfaces for execution and market data. These define how another component could interact with the core; they do not connect to any trading platform. A JSON bridge-protocol validator is included because the OMS replay code imports it. There is no bridge transport or external platform binding.
 
