@@ -33,13 +33,13 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 python -B examples/benchmark_reach_avoid.py
 ```
 
-This example has not been run as part of preparing this separate Core repository. Installation, package building and cross-platform behavior haven't been verified for it either. The build configuration requires `setuptools>=68`; the tests need `pytest>=8.0`. The test files and fictional JSON plans are part of this source tree, but are not guaranteed to be included in an installed wheel.
+The synthetic example was successfully run on Linux with Python 3.13.17 (1,000 simulated trials). Its results use fictional inputs and do not indicate trading performance. Package installation, wheel building and cross-platform behavior remain unverified. The build configuration requires `setuptools>=68`; the tests need `pytest>=8.0`. The test files and fictional JSON plans are part of this source tree, but are not guaranteed to be included in an installed wheel.
 
 ## Tests and what the results mean
 
 Earlier private validation of the larger project reported **500 PURE500 passes** and **106 research-stdlib passes**, or **606 passes in total**. Another **494 cases were not tested**. Nine inherited test modules come from the PURE500 scope; the 106 research-stdlib cases are not included.
 
-Those results are historical evidence for the larger private source, **not test results for this extracted Core repository**. This revision separately passed **26 focused offline regression tests** using standard-library unittest on Python 3.12.7. They cover journal-write failures, Decimal fingerprints, order quantities, in-memory journal isolation and exact rational risk targets. The full pytest suite has not been rerun, and installation, builds and the example remain unverified for this revision. See [Release status](RELEASE_STATUS.md) for the scope and limits.
+Those results are historical evidence for the larger private source, **not test results for this extracted Core repository**. The current Core revision passed its **full repository pytest suite: 526 passed, 0 failed, 0 skipped, 0 errors** on Linux with Python 3.13.17 and pytest 9.2.0. This includes **26 focused offline regression tests** for journal-write failures, Decimal fingerprints, order quantities, in-memory journal isolation and exact rational risk targets. Those 26 regressions had also passed separately on Python 3.12.7. The 526 current-revision results are independent of, and must not be added to, the historical 606 passes. Package installation, wheel builds and wider platform compatibility remain unverified. See [Release status](RELEASE_STATUS.md) for the scope and limits.
 
 The included tests can write temporary files, and one reproducibility test launches local Python child processes. There is no CI workflow, OS network sandbox or firewall provided here. Running pytest alone does not isolate the network, so review the code and run it in an environment you control.
 

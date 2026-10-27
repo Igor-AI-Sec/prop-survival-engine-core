@@ -1,6 +1,6 @@
 # Core v0.1.0: scope and test evidence
 
-This is an experimental offline Python core for risk research, simulation and order management. The code is available as a source tree, but this document is not a claim that it has been tested as a standalone package or is ready for live trading.
+This is an experimental offline Python core for risk research, simulation and order management. The source tree has passed local offline tests, but installation and package building remain unverified. It is not ready for live trading.
 
 ## What's included
 
@@ -22,9 +22,9 @@ The original 75-file candidate was reviewed without running its code. The checks
 
 This revision fixes journal-write recovery gating, context-independent Decimal serialization, integer quantity validation, mutable in-memory journal aliases and Fraction target serialization. It adds a focused unittest module and updates the existing policy test for the stricter constructor. Earlier ZIP hashes do not describe this revised source; a future release manifest must use the final repository snapshot.
 
-The **26 focused regression tests passed** locally on Python 3.12.7 using unittest, synthetic execution doubles and temporary SQLite databases. This is separate evidence from the historical 606 passes. No dependencies were installed. The existing pytest suite was **NOT RUN** because pytest was unavailable in the base interpreter; package installation/build, the example and cross-platform behavior remain unverified for this revision.
+The **full repository pytest suite passed: 526 passed, 0 failed, 0 skipped, 0 errors**, across 10 test modules, on Linux with Python 3.13.17 and pytest 9.2.0. It includes the 26 focused regression tests, which also passed separately using standard-library unittest on Python 3.12.7. Pytest was installed with permission in a temporary virtual environment outside the repository; this was not a package installation or build. The 526 current-revision passes are separate from the historical 606 passes and must not be added to them. The synthetic example `examples/benchmark_reach_avoid.py` also completed successfully on Linux with Python 3.13.17, using 1,000 simulated trials with fictional inputs; these results say nothing about strategy performance. Package installation, wheel building and wider cross-platform compatibility remain unverified.
 
-During the focused tests, Python audit hooks blocked network, process and link operations and restricted Python-level filesystem writes to owned temporary storage. No guard denials occurred. These controls are not an OS sandbox or native-code firewall. The host retained site initialization despite the requested -S option; trusted interpreter startup remains outside the test guard boundary.
+During the earlier focused Python 3.12.7 tests, Python audit hooks blocked network, process and link operations and restricted Python-level filesystem writes to owned temporary storage. No guard denials occurred; these controls were not an OS sandbox or native-code firewall, and the host retained site initialization despite the requested -S option. The later full pytest run used an isolated temporary directory, disabled pytest caching and bytecode writes, and directed HTTP(S) proxies to a non-listening local endpoint. Proxy settings are not an OS network firewall.
 
 ## What remains unknown
 
