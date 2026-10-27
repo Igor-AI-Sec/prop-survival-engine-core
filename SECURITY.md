@@ -12,9 +12,9 @@ Some code writes to local SQLite databases, journals or temporary files at paths
 
 ## Reporting a vulnerability
 
-Once this repository is public **and** GitHub Private Vulnerability Reporting has been enabled, use **Security → Advisories → Report a vulnerability** to send details privately to the maintainers.
+This public repository has **GitHub Private Vulnerability Reporting enabled**, as confirmed in the maintainer's repository settings. To report a potential security vulnerability privately, use **Security → Advisories → Report a vulnerability**.
 
-That reporting feature has not yet been verified as active. Until it is, this repository does not claim to have an operational confidential reporting channel. No alternative email address or contact method is provided.
+If that option is unavailable, do not disclose sensitive vulnerability details in public issues. No alternative private email address or contact method is currently provided.
 
 Please don't post credentials, private journals, sensitive reproduction data or vulnerability details in public issues.
 
